@@ -6,10 +6,9 @@
 # license that can be found in the LICENSE file or at
 # https://opensource.org/licenses/MIT
 
-BASE_URL=http://builds.96boards.org/snapshots/reference-platform/components/uefi-staging
-VERSION=20
+BASE_URL=http://snapshots.linaro.org/reference-platform/embedded/morty
+VERSION=100
 PRODUCT=hikey960
-RELEASE=release
 
 if [ $# -eq 0 ]; then
 	echo "Usage: hikey-efi-flash-image -h"
@@ -23,17 +22,10 @@ key="$1"
 case $key in
 -h)
 echo "Look the file to get help"
-echo "Use -d or -r to download debug or release version"
 echo "Use -v to specify build no."
-echo "Example: "$0" -r -v 20"
-echo "this downloads build #20 release version"
+echo "Example: "$0" -v 100"
+echo "this downloads build #100 release version"
 exit 0
-;;
--d|--debug)
-RELEASE=debug
-;;
--r|--release)
-RELEASE=release
 ;;
 -v|--version)
 VERSION=$2
@@ -49,7 +41,7 @@ done
 
 UEFI_DIR=${1:-./uefi}
 
-UEFI_URL=${BASE_URL}/${VERSION}/${PRODUCT}/${RELEASE}/
+UEFI_URL=${BASE_URL}/${PRODUCT}/${VERSION}/rpb/bootloader/
 echo Creating $UEFI_DIR...
 mkdir -p "$UEFI_DIR"
 cd "$UEFI_DIR"
